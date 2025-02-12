@@ -6,9 +6,9 @@ public class Task2 {
         System.out.print("Enter a number: ");
         Scanner sc = new Scanner(System.in);
         int a = sc.nextInt();
-        int result = 0;
+        long result = 1;
         for (int i = 1; i <= a; i++) {
-            result += i;
+            result *= i;
         }
         System.out.println("The sum of the numbers from 1 to " + a + " = " + result);
     }
