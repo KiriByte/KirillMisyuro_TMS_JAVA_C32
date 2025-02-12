@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 //Пользователь вводит два числа. Необходимо найти среднее арифметическое между заданными числами (сумма чисел / количество чисел)
-public class task3 {
+public class Task3 {
     public void start() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter first number: ");

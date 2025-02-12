@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 //Необходимо найти интервал числа n (интервал это произведение всех целых чисел от 1 до n)
-public class task2 {
+public class Task2 {
     public void start() {
         System.out.print("Enter a number: ");
         Scanner sc = new Scanner(System.in);

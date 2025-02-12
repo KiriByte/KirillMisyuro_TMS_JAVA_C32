@@ -1,14 +1,12 @@
-import java.util.Scanner;
-
 public class main {
     public static void main(String[] args) {
-        var task1 = new task1();
+        var task1 = new Task1();
         task1.start();
 
-        var task2 = new task2();
+        var task2 = new Task2();
         task2.start();
 
-        var task3 = new task3();
+        var task3 = new Task3();
         task3.start();
 
     }

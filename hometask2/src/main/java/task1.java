@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 //Дано произвольное число. Необходимо узнать, сколько в конце числа нулей.
-public class task1 {
+public class Task1 {
     public void start() {
 
         Scanner sc = new Scanner(System.in);
