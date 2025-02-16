@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Task1 {
     //Дан одноместный массив целых чисел. Необходимо получить второй, который будут зеркальной копией первого (элементы наоборот - с последнего до первого)
-    public Random rand;
+    private Random rand;
 
     public Task1(Random rand) {
         this.rand = rand;

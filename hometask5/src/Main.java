@@ -9,6 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        var task1 = new Task1(rand);
+        task1.start();
+
         var task2 = new Task2(rand);
         task2.start();
 
