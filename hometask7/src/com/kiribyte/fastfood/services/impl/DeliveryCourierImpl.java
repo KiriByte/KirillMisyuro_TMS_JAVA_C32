@@ -17,7 +17,7 @@ public class DeliveryCourierImpl implements IOrderDelivery {
     public void pickupOrder(Order order) {
         order.setStatus(OrderStatus.READY);
         logger.logOrderStatus(order);
-        logger.log("The courier picked up order: " + order.getId());
+        logger.log(order.getId() + " The courier picked up order");
         order.setStatus(OrderStatus.DELIVERYING);
         logger.logOrderStatus(order);
     }
@@ -25,7 +25,7 @@ public class DeliveryCourierImpl implements IOrderDelivery {
     @Override
     public void confirmDelivery(Order order) {
         order.setStatus(OrderStatus.COMPLETED);
+        logger.log(order.getId() + " Order was delivered");
         logger.logOrderStatus(order);
-        logger.log("Order was delivered: " + order.getId());
     }
 }

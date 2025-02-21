@@ -7,14 +7,14 @@ public class Main {
     public static void main(String[] args) {
 
         String name = "Kirill Misyuro";
-        String deliveryAddress = "";
+        String deliveryAddress;
 
         ILoggerService loggerService = new LoggerConsoleImpl();
 
         IOrderReceiver orderPhoneReceiver = new ReceiverOrderPhoneImpl(loggerService);
         IOrderReceiver orderOnlineReceiver = new ReceiverOrderOnlineImpl(loggerService);
         IOrderStorage orderStorage = new StorageOrderImpl(loggerService);
-        ICookingProcessor orderCookingProcessor = new SimpleCookingProcessorImpl(loggerService);
+        ICookingProcessor cookingProcessor = new SimpleCookingProcessorImpl(loggerService);
         IOrderDelivery orderPickupDelivery = new DeliveryPickupImpl(loggerService);
         IOrderDelivery orderCourierDelivery = new DeliveryCourierImpl(loggerService);
 
@@ -22,10 +22,20 @@ public class Main {
         //Заказ по телефону - самовывоз
         IFastFoodService service1 = new FastFoodService(orderPhoneReceiver,
                 orderStorage,
-                orderCookingProcessor,
+                cookingProcessor,
                 orderPickupDelivery);
-        deliveryAddress="window";
+        deliveryAddress = "window";
         service1.handleOrder(name, deliveryAddress);
+
+        System.out.println("\r\n-------------------------\r\n");
+
+        //Заказ онлайн - доставка курьером
+        IFastFoodService service2 = new FastFoodService(orderOnlineReceiver,
+                orderStorage,
+                cookingProcessor,
+                orderCourierDelivery);
+        deliveryAddress = "Hrodna";
+        service2.handleOrder(name, deliveryAddress);
 
 
     }
