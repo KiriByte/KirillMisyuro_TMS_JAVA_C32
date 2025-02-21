@@ -19,10 +19,7 @@ public class FastFoodService implements IFastFoodService {
         this.orderStorage = orderStorage;
         this.cookingProcessor = cookingProcessor;
         this.orderDelivery = orderDelivery;
-
-
     }
-
 
     @Override
     public void handleOrder(String customerName, String deliveryAddress) {

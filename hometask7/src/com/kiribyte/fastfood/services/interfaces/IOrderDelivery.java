@@ -13,6 +13,4 @@ public interface IOrderDelivery {
     }
 
     void confirmDelivery(Order order);
-
-
 }

@@ -18,7 +18,6 @@ public class Main {
         IOrderDelivery orderPickupDelivery = new DeliveryPickupImpl(loggerService);
         IOrderDelivery orderCourierDelivery = new DeliveryCourierImpl(loggerService);
 
-
         //Заказ по телефону - самовывоз
         IFastFoodService service1 = new FastFoodService(orderPhoneReceiver,
                 orderStorage,
