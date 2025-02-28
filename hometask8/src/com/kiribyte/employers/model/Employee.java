@@ -3,12 +3,12 @@ package com.kiribyte.employers.model;
 
 public class Employee {
 
-    private String Name;
+    private String name;
     private int yearsOfExperience;
     private Position position;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public int getYearsOfExperience() {
@@ -20,7 +20,7 @@ public class Employee {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public void setYearsOfExperience(int yearsOfExperience) {
