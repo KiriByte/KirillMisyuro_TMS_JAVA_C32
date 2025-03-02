@@ -2,6 +2,8 @@ package com.kiribyte.company;
 
 import com.kiribyte.company.model.Director;
 import com.kiribyte.company.model.Worker;
+import com.kiribyte.company.service.IEmployeeFinder;
+import com.kiribyte.company.service.Impl.EmployeeFinderImpl;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,16 +19,16 @@ public class Main {
 
         director1.addSubordinate(worker1);
         director1.addSubordinate(worker2);
-
         director2.addSubordinate(worker3);
-
         director1.addSubordinate(director2);
 
         System.out.println(director1);
-//        System.out.println(director2);
-//        System.out.println(worker1);
-//        System.out.println(worker2);
-//        System.out.println(worker3);
+        System.out.println(director2);
+        System.out.println(worker3);
+
+        IEmployeeFinder employeeFinder = new EmployeeFinderImpl();
+        System.out.println(employeeFinder.findEmployeeByName(director1, "Elena"));
+        System.out.println(employeeFinder.findEmployeeBySurname(director2, "Sokolov"));
 
 
     }
