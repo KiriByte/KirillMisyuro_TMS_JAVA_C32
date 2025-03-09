@@ -31,15 +31,12 @@ public class Main {
         //4) сделать строку которая будет зеркальна текущей
         System.out.println("Reversed String: " + reverseString(str));
 
-//        Создать произвольный шаблон
-//        Сделать строку используя данный шаблон (String.format), вставим некоторые значения
+        //Создать произвольный шаблон
+        //Сделать строку используя данный шаблон (String.format), вставим некоторые значения
         var dt = LocalDateTime.now();
         var pattern = "DateTime now: %s\nDay: %s\nMonth: %s\nYear: %s";
         var message = String.format(pattern, dt, dt.getDayOfMonth(), dt.getMonth(), dt.getYear());
-
         System.out.println(message);
-
-
     }
 
     public static char getRandomChar(Random random) {
