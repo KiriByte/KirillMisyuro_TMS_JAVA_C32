@@ -7,9 +7,7 @@ public class EmployeeFinderImpl implements IEmployeeFinder {
     @Override
     public boolean findEmployeeByName(Director director, String employeeName) {
 
-        for (int i = 0; i < director.getSubordinatesCount(); i++) {
-            var subordinate = director.getSubordinates()[i];
-
+        for (var subordinate : director.getSubordinates()) {
             if (subordinate.getName().equals(employeeName)) {
                 return true;
             }
@@ -20,7 +18,6 @@ public class EmployeeFinderImpl implements IEmployeeFinder {
                 }
             }
         }
-
         return false;
     }
 
