@@ -1,6 +1,5 @@
 package com.kiribyte.hometask11.service;
 
-
 import com.kiribyte.hometask11.exception.WrongLoginException;
 import com.kiribyte.hometask11.exception.WrongPasswordException;
 
@@ -14,7 +13,7 @@ public class UserRegisterService {
 
     public static void register(String login, String password, String confirmPassword) throws WrongLoginException, WrongPasswordException {
 
-        if (login == null || login.equals("")) {
+        if (isNullOrEmpty(login)) {
             throw new WrongLoginException("Login is null or empty");
         }
         if (login.length() > 20) {
@@ -25,17 +24,20 @@ public class UserRegisterService {
         }
 
 
-        if (password == null || password.equals("")) {
+        if (isNullOrEmpty(password)) {
             throw new WrongPasswordException("Password is null or empty");
         }
         Matcher matcher = pattern.matcher(password);
         if (!matcher.matches()) {
-            throw new WrongPasswordException("Password is not correct");
+            throw new WrongPasswordException("Password must contain at least one digit and no spaces");
         }
         if (!confirmPassword.equals(password)) {
             throw new WrongPasswordException("Password does not match");
         }
 
+    }
 
+    private static boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 }
