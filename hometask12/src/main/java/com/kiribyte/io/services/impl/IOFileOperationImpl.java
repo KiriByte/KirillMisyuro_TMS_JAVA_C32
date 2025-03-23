@@ -4,7 +4,7 @@ import com.kiribyte.io.services.IFileOperation;
 
 import java.io.*;
 
-public class IOFileOperation implements IFileOperation {
+public class IOFileOperationImpl implements IFileOperation {
     @Override
     public void writeToFile(String fileName, String content) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
