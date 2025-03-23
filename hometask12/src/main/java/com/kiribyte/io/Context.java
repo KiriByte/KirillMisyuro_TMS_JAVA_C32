@@ -1,4 +1,6 @@
-package com.kiribyte.io.services;
+package com.kiribyte.io;
+
+import com.kiribyte.io.services.IAppRunner;
 
 public class Context {
 

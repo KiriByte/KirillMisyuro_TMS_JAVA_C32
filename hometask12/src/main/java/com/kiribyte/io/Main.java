@@ -1,6 +1,5 @@
 package com.kiribyte.io;
 
-import com.kiribyte.io.services.Context;
 import com.kiribyte.io.services.IAppRunner;
 import com.kiribyte.io.services.ILogger;
 import com.kiribyte.io.services.impl.ConsoleLoggerImpl;
