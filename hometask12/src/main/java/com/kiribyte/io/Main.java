@@ -26,15 +26,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-        IAppRunner hometask = new HomeTaskApp(logger);
-        IAppRunner experimental = new ExperimentalApp(logger);
 
-        Context context = new Context(hometask);
+        IAppRunner app = selectAppRunner(args);
+        Context context = new Context(app);
         context.execute();
 
-//        context.setAppRunner(experimental);
-//        context.execute();
     }
 
+    public static IAppRunner selectAppRunner(String[] args) {
+        if (args.length == 0) {
+            return new HomeTaskApp(logger);
+        }
+
+        switch (args[0]) {
+            case "-h":
+                return new HomeTaskApp(logger);
+            case "-e":
+                return new ExperimentalApp(logger);
+            default:
+                throw new IllegalArgumentException("Unknown argument: " + args[0]);
+        }
+
+
+    }
 
 }
