@@ -7,11 +7,12 @@ import com.kiribyte.hometask11.service.UserRegisterService;
 public class Main {
     public static void main(String[] args) {
         var login = "Username";
-        var password = "Password1111111111111111111111111";
-        var confirmPassword = "Confirm Password";
+        var password = "ConfirmPassword1";
+        var confirmPassword = "ConfirmPassword1";
 
         try {
             UserRegisterService.register(login, password, confirmPassword);
+            System.out.println("User successfully registered!");
         } catch (WrongLoginException | WrongPasswordException e) {
             System.out.println(e.getMessage());
         }

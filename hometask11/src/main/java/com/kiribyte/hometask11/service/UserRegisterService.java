@@ -29,7 +29,10 @@ public class UserRegisterService {
         }
         Matcher matcher = pattern.matcher(password);
         if (!matcher.matches()) {
-            throw new WrongPasswordException("Password must contain at least one digit and no spaces");
+            throw new WrongPasswordException("Password must meet the following criteria:\n" +
+                    "- Password length must be between 1 and 20 characters.\n" +
+                    "- Password must not contain spaces.\n" +
+                    "- Password must contain at least one digit.");
         }
         if (!confirmPassword.equals(password)) {
             throw new WrongPasswordException("Password does not match");
