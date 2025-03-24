@@ -9,7 +9,7 @@ import static com.kiribyte.io.Main.*;
 
 public class HomeTaskApp implements IAppRunner {
 
-    private static ILogger logger;
+    private final ILogger logger;
 
     public HomeTaskApp(ILogger logger) {
         this.logger = logger;
@@ -29,25 +29,20 @@ public class HomeTaskApp implements IAppRunner {
              BufferedWriter romeoWriter = new BufferedWriter(new FileWriter(romeoFile));
              BufferedWriter julietWriter = new BufferedWriter(new FileWriter(julietFile))) {
 
-
             String line;
             boolean isRomeo = false;
-            boolean isGulieta = false;
 
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("Romeo:")) {
                     isRomeo = true;
-                    isGulieta = false;
                 } else if (line.startsWith("Gulieta:")) {
-                    isGulieta = true;
                     isRomeo = false;
                 }
 
                 if (isRomeo) {
                     romeoWriter.write(line);
                     romeoWriter.newLine();
-                }
-                if (isGulieta) {
+                } else {
                     julietWriter.write(line);
                     julietWriter.newLine();
                 }
@@ -55,23 +50,23 @@ public class HomeTaskApp implements IAppRunner {
             }
 
         } catch (IOException e) {
+            logger.log("Error while processing file: " + e.getMessage());
             throw new RuntimeException(e);
         }
 
 
     }
 
-
     private File prepareFile(String filePath) {
         File file = new File(filePath);
         try {
             if (file.exists()) {
                 if (!file.delete()) {
-                    throw new RuntimeException("Failed to delete file: " + filePath);
+                    throw new IOException("Failed to delete file: " + filePath);
                 }
             }
             if (!file.createNewFile()) {
-                throw new RuntimeException("Failed to create file: " + filePath);
+                throw new IOException("Failed to create file: " + filePath);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error while preparing file: " + filePath, e);

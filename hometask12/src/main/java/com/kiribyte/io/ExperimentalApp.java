@@ -7,7 +7,6 @@ import com.kiribyte.io.services.impl.IOFileOperationImpl;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import static com.kiribyte.io.Main.*;
@@ -15,7 +14,7 @@ import static com.kiribyte.io.Main.*;
 public class ExperimentalApp implements IAppRunner {
 
 
-    private static ILogger logger;
+    private final ILogger logger;
 
     public ExperimentalApp(ILogger logger) {
         this.logger = logger;
