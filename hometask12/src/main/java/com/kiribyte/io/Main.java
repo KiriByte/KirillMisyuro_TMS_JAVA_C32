@@ -26,26 +26,29 @@ public class Main {
 
     public static void main(String[] args) {
 
+        IAppRunner app = null;
+        try {
+            app = selectAppRunner(args);
+        } catch (IllegalArgumentException e) {
+            logger.log(e.getMessage());
+            return;
+        }
 
-        IAppRunner app = selectAppRunner(args);
         Context context = new Context(app);
         context.execute();
 
     }
 
-    public static IAppRunner selectAppRunner(String[] args) {
+    public static IAppRunner selectAppRunner(String[] args) throws IllegalStateException {
         if (args.length == 0) {
             return new HomeTaskApp(logger);
         }
 
-        switch (args[0]) {
-            case "-h":
-                return new HomeTaskApp(logger);
-            case "-e":
-                return new ExperimentalApp(logger);
-            default:
-                throw new IllegalArgumentException("Unknown argument: " + args[0]);
-        }
+        return switch (args[0]) {
+            case "-h" -> new HomeTaskApp(logger);
+            case "-e" -> new ExperimentalApp(logger);
+            default -> throw new IllegalArgumentException("Unknown argument: " + args[0]);
+        };
 
 
     }
