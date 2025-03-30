@@ -6,7 +6,7 @@ public class RunnableTask implements Runnable {
         for (int i = 0; i < 60; i++) {
             System.out.println("MyRunnable is running: " + i);
             try {
-                Thread.sleep(500); // Имитация работы
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 System.out.println(e);
             }

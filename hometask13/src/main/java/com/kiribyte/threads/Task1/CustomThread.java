@@ -7,7 +7,7 @@ public class CustomThread extends Thread {
         for (int i = 0; i < 60; i++) {
             System.out.println("extendsTask1 is running: " + i);
             try {
-                Thread.sleep(1000); // Имитация работы
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("extendsTask1 interrupted");
             }
