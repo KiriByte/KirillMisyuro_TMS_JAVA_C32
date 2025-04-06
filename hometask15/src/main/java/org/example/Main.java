@@ -11,10 +11,19 @@ public class Main {
 
         Faker faker = new Faker();
 
+        List<User> users = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            var user = new User(
+                    faker.internet().username(),
+                    faker.name().firstName(),
+                    new Random().nextInt(95));
+            users.add(user);
+        }
+
         Map<String, User> userMap = new HashMap<>();
-        for (var i = 0; i < 10; i++) {
-            var user = new User(faker.internet().username(), faker.name().firstName(), new Random().nextInt(95));
-            userMap.put(user.getName(), user);
+        for (var user : users) {
+            userMap.put(user.getLogin(), user);
         }
         System.out.println(userMap);
 
