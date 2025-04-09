@@ -1,7 +1,9 @@
 package org.example;
 
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -55,5 +57,20 @@ public class Main {
         String analized = analizer.apply(number);
         printResult.accept(analized);
 
+        //---------------------------------------------------
+
+
+        TreeSet<Worker> workers = new TreeSet<>((worker1, worker2) ->
+                Double.compare(worker1.getSalary(), worker2.getSalary()));
+
+        var random = new Random();
+        for (int i = 0; i < 10; i++) {
+            workers.add(new Worker("worler" + i, random.nextInt(100)));
+        }
+
+        System.out.println();
+        for (Worker worker : workers) {
+            System.out.println(worker);
+        }
     }
 }
