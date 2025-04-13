@@ -34,7 +34,7 @@ public class Main {
                     validInput = true;
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a valid integer.");
-                    scanner.nextLine();  // Очистка буфера ввода
+                    scanner.nextLine();
                 }
             }
             return number;
@@ -67,7 +67,7 @@ public class Main {
         }
 
         System.out.println();
-        for (Worker worker : workers) {
+        for (var worker : workers) {
             System.out.println(worker);
         }
     }
