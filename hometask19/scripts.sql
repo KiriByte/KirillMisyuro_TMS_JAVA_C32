@@ -1,9 +1,9 @@
 -- 1) Создание произвольной таблицы
 CREATE TABLE IF NOT EXISTS app_user(
-                                       id SERIAL PRIMARY KEY,
-                                       first_name VARCHAR NOT NULL,
-                                       last_name VARCHAR NOT NULL,
-                                       datebirth DATE
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    datebirth DATE
 );
 
 -- 3) Вставка записи
