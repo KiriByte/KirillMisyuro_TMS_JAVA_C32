@@ -41,7 +41,7 @@ public class Main {
             }
 
         } catch (SQLException e) {
-            System.out.println("Connection failed: " + e.getMessage());
+            System.err.println("Connection failed: " + e.getMessage());
         }
     }
 }

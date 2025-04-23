@@ -36,7 +36,7 @@ public class StringStorage implements StringReader, StringWriter {
                 result.add(rs.getString("data"));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
         return result;
     }
@@ -47,6 +47,8 @@ public class StringStorage implements StringReader, StringWriter {
         try (PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, data);
             st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
