@@ -43,7 +43,7 @@ public class LogoutUserServlet extends HttpServlet {
         Cookie cookie = new Cookie("token", "");
         cookie.setMaxAge(0);
         resp.addCookie(cookie);
-        resp.sendRedirect(req.getContextPath() + "/auth");
+        resp.sendError(HttpServletResponse.SC_OK);
 
 
     }

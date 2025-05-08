@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository {
 
     @Override
-    public void save(User user) {
+    public void saveUser(User user) {
         try (Connection connection = DbConnection.getConnection()) {
 
             String sql = "INSERT INTO users(login,password,token) VALUES (?,?,?)";

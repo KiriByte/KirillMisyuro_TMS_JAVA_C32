@@ -18,37 +18,37 @@ public class RegisterUserServlet extends HttpServlet {
     private final UserRepository userRepository = new UserRepositoryImpl();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        var login = request.getParameter("login");
-        var password = request.getParameter("password");
-        var confirmPassword = request.getParameter("confirmPassword");
+        var login = req.getParameter("login");
+        var password = req.getParameter("password");
+        var confirmPassword = req.getParameter("confirmPassword");
 
         if (login == null || password == null || confirmPassword == null) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("Login and password are required");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().println("Login and password are required");
             return;
         }
         if (login.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("Login and password are required");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().println("Login and password are required");
             return;
         }
         if (userRepository.existsByLogin(login)) {
-            response.setStatus(HttpServletResponse.SC_CONFLICT);
-            response.getWriter().println("User already exists");
+            resp.setStatus(HttpServletResponse.SC_CONFLICT);
+            resp.getWriter().println("User already exists");
             return;
         }
         if (!password.equals(confirmPassword)) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("Passwords do not match");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().println("Passwords do not match");
             return;
         }
 
         var hashPassword = PasswordHash.GetHash(password);
         var user = new User(login, hashPassword);
-        userRepository.save(user);
-        response.sendRedirect(request.getContextPath() + "/auth");
+        userRepository.saveUser(user);
+        resp.sendError(HttpServletResponse.SC_CREATED);
     }
 
 }

@@ -23,7 +23,7 @@ public class CreateRouteServlet extends HttpServlet {
         var route = new Route(description, length);
         var isSuccess = routeRepository.addRoute(route);
         if (isSuccess) {
-            resp.sendRedirect(req.getContextPath() + "/home");
+            resp.sendError(HttpServletResponse.SC_CREATED);
         } else {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

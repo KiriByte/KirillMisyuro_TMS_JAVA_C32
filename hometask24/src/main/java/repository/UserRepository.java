@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UserRepository {
     //CRUD
-    void save(User user);
+    void saveUser(User user);
 
     Optional<User> findByToken(String token);
 
