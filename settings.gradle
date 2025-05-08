@@ -1,2 +1,4 @@
 rootProject.name = 'KirillMisyuro_TMS_JAVA_C32'
 
+
+include 'hometask24'
