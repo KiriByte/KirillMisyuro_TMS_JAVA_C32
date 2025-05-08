@@ -25,8 +25,8 @@ public class RegisterUserServlet extends HttpServlet {
         var confirmPassword = req.getParameter("confirmPassword");
 
         if (login == null || password == null || confirmPassword == null) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().println("Login and password are required");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Login and password are required");
+            resp.getWriter().println();
             return;
         }
         if (login.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
