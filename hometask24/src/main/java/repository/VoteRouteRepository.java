@@ -11,5 +11,5 @@ public interface VoteRouteRepository {
 
     int getVotesCount(int route_id);
 
-    List<Integer> getVotedRouteIds(int user_id);
+    List<Integer> getRoutesVotedByUser(int user_id);
 }

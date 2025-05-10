@@ -80,7 +80,7 @@ public class VoteRouteRepositoryImpl implements VoteRouteRepository {
     }
 
     @Override
-    public List<Integer> getVotedRouteIds(int user_id) {
+    public List<Integer> getRoutesVotedByUser(int user_id) {
         try (Connection connection = DbConnection.getConnection()) {
             String sql = "SELECT route_id FROM route_votes WHERE user_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {

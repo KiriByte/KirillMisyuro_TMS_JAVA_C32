@@ -18,7 +18,6 @@ import java.io.IOException;
 public class VoteRouteServlet extends HttpServlet {
 
     private final UserRepository userRepository = new UserRepositoryImpl();
-    private final RouteRepository routeRepository = new RouteRepositoryImpl();
     private final VoteRouteRepository voteRouteRepository = new VoteRouteRepositoryImpl();
 
 
@@ -36,21 +35,25 @@ public class VoteRouteServlet extends HttpServlet {
             }
         }
         if (routeIdParam == null || token == null) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Route id and authentication token are required");
             return;
         }
 
         int routeId;
         try {
             routeId = Integer.parseInt(routeIdParam);
+            if (routeId <= 0) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Route ID must be a positive number");
+                return;
+            }
         } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid 'id' format (must be a number)");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid route id format (must be a number)");
             return;
         }
 
         var user = userRepository.findByToken(token);
         if (user.isEmpty()) {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
             return;
         }
         var userId = user.get().getId();
@@ -59,7 +62,7 @@ public class VoteRouteServlet extends HttpServlet {
         if (isSuccess) {
             resp.setStatus(HttpServletResponse.SC_CREATED);
         } else {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to register vote");
         }
 
     }

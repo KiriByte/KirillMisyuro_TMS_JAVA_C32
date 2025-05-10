@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RouteRepository {
-    //CRUD
     boolean addRoute(Route route);
 
     Optional<Route> getRouteById(int id);

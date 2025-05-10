@@ -24,31 +24,24 @@ public class RegisterUserServlet extends HttpServlet {
         var password = req.getParameter("password");
         var confirmPassword = req.getParameter("confirmPassword");
 
-        if (login == null || password == null || confirmPassword == null) {
+        if (login == null || password == null || confirmPassword == null ||
+                login.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Login and password are required");
-            resp.getWriter().println();
-            return;
-        }
-        if (login.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().println("Login and password are required");
             return;
         }
         if (userRepository.existsByLogin(login)) {
-            resp.setStatus(HttpServletResponse.SC_CONFLICT);
-            resp.getWriter().println("User already exists");
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "User already exists");
             return;
         }
         if (!password.equals(confirmPassword)) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().println("Passwords do not match");
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "Passwords do not match");
             return;
         }
 
         var hashPassword = PasswordHash.GetHash(password);
         var user = new User(login, hashPassword);
         userRepository.saveUser(user);
-        resp.sendError(HttpServletResponse.SC_CREATED);
+        resp.setStatus(HttpServletResponse.SC_CREATED);
     }
 
 }

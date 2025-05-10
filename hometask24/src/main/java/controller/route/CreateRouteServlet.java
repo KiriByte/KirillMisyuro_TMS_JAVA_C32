@@ -18,14 +18,37 @@ public class CreateRouteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        var description = req.getParameter("description");
-        var length = Integer.parseInt(req.getParameter("length"));
-        var route = new Route(description, length);
+        var descriptionParam = req.getParameter("descriptionParam");
+        var lengthParam = req.getParameter("length");
+
+        if (descriptionParam == null || lengthParam == null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Description and length are required");
+            return;
+        }
+
+        if (descriptionParam.isEmpty()) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Description cannot be empty");
+            return;
+        }
+
+        int length;
+        try {
+            length = Integer.parseInt(lengthParam);
+            if (length <= 0) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Length must be a positive number");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid length format (must be a number)");
+            return;
+        }
+
+        var route = new Route(descriptionParam, length);
         var isSuccess = routeRepository.addRoute(route);
         if (isSuccess) {
-            resp.sendError(HttpServletResponse.SC_CREATED);
+            resp.setStatus(HttpServletResponse.SC_CREATED);
         } else {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create route");
         }
     }
 }

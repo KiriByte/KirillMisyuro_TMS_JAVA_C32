@@ -29,13 +29,12 @@ public class LogoutUserServlet extends HttpServlet {
             }
         }
         if (token == null || token.isEmpty()) {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token not found");
             return;
         }
         var user = userRepository.findByToken(token);
         if (user.isEmpty()) {
-            System.out.println("User not found");
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid token");
             return;
         }
         userRepository.updateToken(user.get().getId(), "");
@@ -43,7 +42,7 @@ public class LogoutUserServlet extends HttpServlet {
         Cookie cookie = new Cookie("token", "");
         cookie.setMaxAge(0);
         resp.addCookie(cookie);
-        resp.sendError(HttpServletResponse.SC_OK);
+        resp.setStatus(HttpServletResponse.SC_OK);
 
 
     }

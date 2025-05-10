@@ -23,12 +23,9 @@ public class AuthUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var login = req.getParameter("login");
         var password = req.getParameter("password");
-        if (login == null || password == null) {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
-        if (login.isEmpty() || password.isEmpty()) {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        if (login == null || password == null ||
+                login.isEmpty() || password.isEmpty()) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Login and password are required");
             return;
         }
 
@@ -37,8 +34,7 @@ public class AuthUserServlet extends HttpServlet {
         if (user.isPresent()) {
             passwordIsVeryfied = PasswordHash.VerifyHash(password, user.get().getPassword());
             if (!passwordIsVeryfied) {
-                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                resp.getWriter().println("Invalid password");
+                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid password");
                 return;
             }
         }
@@ -49,6 +45,6 @@ public class AuthUserServlet extends HttpServlet {
         //0 - удалить, >0 - установить срок, <0 - сессионная кука.
         cookie.setMaxAge(3600);
         resp.addCookie(cookie);
-        resp.sendError(HttpServletResponse.SC_OK);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
