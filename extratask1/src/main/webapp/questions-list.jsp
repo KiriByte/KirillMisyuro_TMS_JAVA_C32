@@ -12,7 +12,7 @@
 
         <div>
             <h2>Создать новый вопрос</h2>
-            <form method="post" action="AddQuestion">
+            <form method="post" action="add-question">
                 <label>
                     Текст вопроса
                     <textarea name="questionText" required></textarea>
