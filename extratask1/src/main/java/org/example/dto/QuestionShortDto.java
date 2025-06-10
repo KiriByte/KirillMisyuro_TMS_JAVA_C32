@@ -12,6 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class QuestionShortDto {
     private int id;
-    private String title;
-
+    private String text;
 }

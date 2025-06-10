@@ -34,7 +34,7 @@
                         <tbody>
                         <c:forEach var="question" items="${questions}">
                             <tr>
-                                <td>${question.title}</td>
+                                <td>${question.text}</td>
                                 <td>
                                     <div class="action-buttons">
                                         <form method="get" action="question-details">

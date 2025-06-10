@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnswerDto {
+public class AnswerEntity {
     private int id;
     private String text;
+    private boolean isActive;
+    private int questionId;
 }
