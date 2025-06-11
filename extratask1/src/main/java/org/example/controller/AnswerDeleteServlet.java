@@ -22,7 +22,7 @@ public class AnswerDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("answerId"));
-        answerService.deleteAnswer(id);
+        answerService.deactivateAnswer(id);
         resp.sendRedirect("question-details?questionId=" + req.getParameter("questionId"));
     }
 }

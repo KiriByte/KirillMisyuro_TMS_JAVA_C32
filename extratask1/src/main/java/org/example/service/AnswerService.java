@@ -7,5 +7,5 @@ import java.util.List;
 public interface AnswerService {
     void addAnswer(AnswerAddDto answerDto);
 
-    void deleteAnswer(int answerId);
+    void deactivateAnswer(int answerId);
 }

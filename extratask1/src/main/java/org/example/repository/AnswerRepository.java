@@ -4,15 +4,9 @@ import org.example.entity.AnswerEntity;
 
 import java.util.List;
 
-public interface AnswerRepository {
-    boolean addAnswer(AnswerEntity answer);
+public interface AnswerRepository extends CrudRepository<AnswerEntity> {
 
-    boolean deleteAnswer(AnswerEntity answer);
+    boolean updateStatus(AnswerEntity answerEntity);
 
-    boolean updateAnswer(AnswerEntity answer);
-
-    List<AnswerEntity> getAllAnswersByQuestionId(int questionId);
-
-    List<AnswerEntity> getAllActiveAnswersByQuestionId(int questionId);
-
+    List<AnswerEntity> findAllActiveByQuestionId(long questionId);
 }

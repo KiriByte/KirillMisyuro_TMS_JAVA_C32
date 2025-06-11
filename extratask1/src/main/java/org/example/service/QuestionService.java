@@ -12,5 +12,5 @@ public interface QuestionService {
 
     boolean addQuestion(QuestionShortDto question);
 
-    void deleteQuestion(int questionId);
+    void deactivateQuestion(int questionId);
 }

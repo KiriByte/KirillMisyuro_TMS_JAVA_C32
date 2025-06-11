@@ -44,8 +44,9 @@ public class QuestionServiceImpl implements QuestionService {
             questionDto.setId(question.get().getId());
             questionDto.setText(question.get().getText());
 
-            List<AnswerEntity> answers = answerRepository.getAllActiveAnswersByQuestionId(questionId);
-            List<AnswerDto> answerDtos = answers.stream()
+            List<AnswerEntity> answers = answerRepository.findAllActiveByQuestionId(questionId);
+            List<AnswerDto> answerDtos = answers
+                    .stream()
                     .map(answer -> {
                         AnswerDto answerDto = new AnswerDto();
                         answerDto.setId(answer.getId());
@@ -67,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void deleteQuestion(int questionId) {
+    public void deactivateQuestion(int questionId) {
         Optional<QuestionEntity> question = questionRepository.findById(questionId);
         if (question.isPresent()) {
             question.get().setActive(false);

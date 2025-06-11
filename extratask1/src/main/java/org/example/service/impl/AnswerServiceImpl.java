@@ -19,20 +19,18 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public void addAnswer(AnswerAddDto answerDto) {
-
         AnswerEntity answerEntity = new AnswerEntity();
         answerEntity.setText(answerDto.getText());
-        answerEntity.setActive(true);
         answerEntity.setQuestionId(answerDto.getQuestionId());
-        answerRepository.addAnswer(answerEntity);
+        answerRepository.create(answerEntity);
 
     }
 
     @Override
-    public void deleteAnswer(int answerId) {
+    public void deactivateAnswer(int answerId) {
         AnswerEntity answerEntity = new AnswerEntity();
         answerEntity.setId(answerId);
         answerEntity.setActive(false);
-        answerRepository.deleteAnswer(answerEntity);
+        answerRepository.updateStatus(answerEntity);
     }
 }

@@ -31,20 +31,6 @@ public class QuestionRepositoryImpl implements
     }
 
     @Override
-    public int update(QuestionEntity entity) {
-        String query = "UPDATE questions SET text = ?, is_active = ? WHERE id = ?";
-        try (Connection connection = DbConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, entity.getText());
-            statement.setBoolean(2, entity.isActive());
-            statement.setInt(3, entity.getId());
-            return statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public Optional<QuestionEntity> findById(int id) {
         String query = "SELECT * FROM questions WHERE id = ?";
         try (Connection connection = DbConnection.getConnection();
@@ -73,6 +59,20 @@ public class QuestionRepositoryImpl implements
             }
             return questions;
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int update(QuestionEntity entity) {
+        String query = "UPDATE questions SET text = ?, is_active = ? WHERE id = ?";
+        try (Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, entity.getText());
+            statement.setBoolean(2, entity.isActive());
+            statement.setInt(3, entity.getId());
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
