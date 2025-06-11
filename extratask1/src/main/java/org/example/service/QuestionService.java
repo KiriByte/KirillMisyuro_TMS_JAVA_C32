@@ -10,7 +10,7 @@ public interface QuestionService {
 
     QuestionWithAnswersDto getQuestionByIdWithAnswers(int questionId);
 
-    void addQuestion(QuestionShortDto question);
+    boolean addQuestion(QuestionShortDto question);
 
     void deleteQuestion(int questionId);
 }

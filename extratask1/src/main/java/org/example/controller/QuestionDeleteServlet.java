@@ -24,6 +24,5 @@ public class QuestionDeleteServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("questionId"));
         questionService.deleteQuestion(id);
         resp.sendRedirect("questions-list");
-
     }
 }

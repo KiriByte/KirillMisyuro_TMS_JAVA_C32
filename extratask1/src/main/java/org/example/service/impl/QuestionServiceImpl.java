@@ -27,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<QuestionShortDto> getQuestions() {
         List<QuestionShortDto> questions = new ArrayList<>();
-        questionRepository.getAllActiveQuestions().forEach(question -> {
+        questionRepository.findAllActive().forEach(question -> {
             QuestionShortDto questionDto = new QuestionShortDto();
             questionDto.setId(question.getId());
             questionDto.setText(question.getText());
@@ -38,13 +38,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionWithAnswersDto getQuestionByIdWithAnswers(int questionId) {
-        QuestionWithAnswersDto dto = new QuestionWithAnswersDto();
-        Optional<QuestionEntity> question = questionRepository.getQuestionById(questionId);
+        QuestionWithAnswersDto questionDto = new QuestionWithAnswersDto();
+        Optional<QuestionEntity> question = questionRepository.findById(questionId);
         if (question.isPresent()) {
-            dto.setId(question.get().getId());
-            dto.setText(question.get().getText());
-            List<AnswerEntity> answers = answerRepository.getAllActiveAnswersByQuestionId(questionId);
+            questionDto.setId(question.get().getId());
+            questionDto.setText(question.get().getText());
 
+            List<AnswerEntity> answers = answerRepository.getAllActiveAnswersByQuestionId(questionId);
             List<AnswerDto> answerDtos = answers.stream()
                     .map(answer -> {
                         AnswerDto answerDto = new AnswerDto();
@@ -52,21 +52,26 @@ public class QuestionServiceImpl implements QuestionService {
                         answerDto.setText(answer.getText());
                         return answerDto;
                     }).collect(Collectors.toList());
-            dto.setAnswers(answerDtos);
+            questionDto.setAnswers(answerDtos);
         }
-        return dto;
+        return questionDto;
     }
 
     @Override
-    public void addQuestion(QuestionShortDto question) {
+    public boolean addQuestion(QuestionShortDto question) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setText(question.getText());
         questionEntity.setActive(true);
-        questionRepository.addQuestion(questionEntity);
+        QuestionEntity entity = questionRepository.create(questionEntity);
+        return entity != null;
     }
 
     @Override
     public void deleteQuestion(int questionId) {
-        questionRepository.deleteQuestionById(questionId);
+        Optional<QuestionEntity> question = questionRepository.findById(questionId);
+        if (question.isPresent()) {
+            question.get().setActive(false);
+            questionRepository.updateStatus(question.get());
+        }
     }
 }

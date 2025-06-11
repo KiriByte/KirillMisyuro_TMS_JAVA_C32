@@ -26,7 +26,6 @@ public class QuestionDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         var questionId = Integer.parseInt(req.getParameter("questionId"));
-        System.out.println(questionId);
         QuestionWithAnswersDto questionWithAnswersDto = questionService.getQuestionByIdWithAnswers(questionId);
         req.setAttribute("question", questionWithAnswersDto);
         req.getRequestDispatcher("question-details.jsp").forward(req, resp);

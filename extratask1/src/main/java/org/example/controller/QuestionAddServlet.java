@@ -25,7 +25,12 @@ public class QuestionAddServlet extends HttpServlet {
         String text = req.getParameter("questionText");
         QuestionShortDto questionShortDto = new QuestionShortDto();
         questionShortDto.setText(text);
-        questionService.addQuestion(questionShortDto);
-        resp.sendRedirect("questions-list");
+        
+        boolean isAdded = questionService.addQuestion(questionShortDto);
+        if (isAdded) {
+            resp.sendRedirect("questions-list");
+        } else {
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "Question already exists or invalid data");
+        }
     }
 }
