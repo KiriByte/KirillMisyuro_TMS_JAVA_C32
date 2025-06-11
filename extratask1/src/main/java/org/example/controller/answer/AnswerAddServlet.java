@@ -1,28 +1,33 @@
-package org.example.controller;
+package org.example.controller.answer;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.dto.AnswerDto;
+import org.example.dto.AnswerAddDto;
 import org.example.service.AnswerService;
 import org.example.service.impl.AnswerServiceImpl;
 
 import java.io.IOException;
 
-@WebServlet("/delete-answer")
-public class AnswerDeleteServlet extends HttpServlet {
+@WebServlet("/add-answer")
+public class AnswerAddServlet extends HttpServlet {
+
     private final AnswerService answerService;
 
-    public AnswerDeleteServlet() {
+    public AnswerAddServlet() {
         answerService = new AnswerServiceImpl();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("answerId"));
-        answerService.deactivateAnswer(id);
+        String text = req.getParameter("answerText");
+        int questionId = Integer.parseInt(req.getParameter("questionId"));
+        AnswerAddDto answerDto = new AnswerAddDto();
+        answerDto.setText(text);
+        answerDto.setQuestionId(questionId);
+        answerService.addAnswer(answerDto);
         resp.sendRedirect(req.getContextPath() + "/question-details?questionId=" + req.getParameter("questionId"));
     }
 }
