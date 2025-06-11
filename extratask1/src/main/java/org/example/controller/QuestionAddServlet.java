@@ -28,7 +28,7 @@ public class QuestionAddServlet extends HttpServlet {
         
         boolean isAdded = questionService.addQuestion(questionShortDto);
         if (isAdded) {
-            resp.sendRedirect("questions-list");
+            resp.sendRedirect(req.getContextPath() + "/questions-list");
         } else {
             resp.sendError(HttpServletResponse.SC_CONFLICT, "Question already exists or invalid data");
         }

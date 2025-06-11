@@ -16,12 +16,11 @@ public class AnswerRepositoryImpl implements AnswerRepository {
 
     @Override
     public AnswerEntity create(AnswerEntity entity) {
-        String query = "INSERT INTO answers (text, is_active, question_id) VALUES (?,?,?) RETURNING *";
+        String query = "INSERT INTO answers (text, question_id) VALUES (?,?) RETURNING *";
         try (Connection connection = DbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, entity.getText());
-            statement.setBoolean(2, entity.isActive());
-            statement.setInt(3, entity.getQuestionId());
+            statement.setInt(2, entity.getQuestionId());
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return ResultToEntity(resultSet);

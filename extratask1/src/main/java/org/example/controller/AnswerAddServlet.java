@@ -29,6 +29,6 @@ public class AnswerAddServlet extends HttpServlet {
         answerDto.setText(text);
         answerDto.setQuestionId(questionId);
         answerService.addAnswer(answerDto);
-        resp.sendRedirect("question-details?questionId=" + req.getParameter("questionId"));
+        resp.sendRedirect(req.getContextPath() + "/question-details?questionId=" + req.getParameter("questionId"));
     }
 }
