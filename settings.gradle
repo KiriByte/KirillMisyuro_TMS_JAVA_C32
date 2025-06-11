@@ -1,4 +1,5 @@
 rootProject.name = 'KirillMisyuro_TMS_JAVA_C32'
+
 include 'hometask2'
 include 'hometask10'
 include 'hometask11'
@@ -13,3 +14,4 @@ include 'hometask19'
 include 'hometask20'
 include 'hometask22'
 include 'hometask23'
+include 'hometask24'
