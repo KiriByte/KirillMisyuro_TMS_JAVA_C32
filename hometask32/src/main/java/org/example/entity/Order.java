@@ -20,7 +20,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(length = 1024)
     private String name;
+    @Enumerated(EnumType.STRING)
     private ProductType product;
     @Column(name = "order_date")
     private Instant orderDate;
