@@ -28,6 +28,7 @@ public class Order {
     private Instant orderDate;
     @Embedded
     private Address address;
+    @Column(nullable = false)
     private Long cost;
     @Column(name = "is_priority")
     private Boolean isPriorityOrder;
