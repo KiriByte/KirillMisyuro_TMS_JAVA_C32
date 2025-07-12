@@ -1,37 +1,31 @@
 package org.example.service.impl;
 
 import org.example.service.HorseService;
-import org.example.service.Logger;
+import org.example.service.MessageOutput;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HorseServiceImpl implements HorseService {
 
-    private int defaultHorseCount = 3;
+    private int horseCount = 3;
 
-    private final Logger logger;
+    private final MessageOutput messageOutput;
 
-    public HorseServiceImpl(Logger logger) {
-        this.logger = logger;
-    }
-
-    @Override
-    public int getHorseCount() {
-        return defaultHorseCount;
+    public HorseServiceImpl(MessageOutput messageOutput) {
+        this.messageOutput = messageOutput;
     }
 
     @Override
     public int setHorseCount(int horseCount) {
-        defaultHorseCount = horseCount;
-        return defaultHorseCount;
+        this.horseCount = horseCount;
+        return this.horseCount;
     }
-
 
     @Override
     public void displayHorses() {
-        logger.log("Horses in race: ");
-        for (int i = 1; i <= defaultHorseCount; i++) {
-            logger.log("Horse #" + i);
+        messageOutput.write("Horses in race: ");
+        for (int i = 1; i <= horseCount; i++) {
+            messageOutput.write("Horse #" + i);
         }
     }
 }

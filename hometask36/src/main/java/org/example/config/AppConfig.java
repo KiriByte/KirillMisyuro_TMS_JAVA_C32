@@ -8,46 +8,49 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-
     @Bean
     public Player player() {
         return new Player();
     }
 
     @Bean
-    public BetExecuterService betExecuterService() {
-        return new BetExecuterServiceImpl(player(), logger());
+    public BetExecuterService betExecuterService(Player player, MessageOutput messageOutput) {
+        return new BetExecuterServiceImpl(player, messageOutput);
     }
 
     @Bean
-    public InputService inputService() {
-        return new ConsoleInputServiceImpl(logger());
+    public UserInput inputService(MessageOutput messageOutput) {
+        return new ConsoleUserInputImpl(messageOutput);
     }
 
     @Bean
-    public Logger logger() {
-        return new ConsoleLoggerImpl();
+    public MessageOutput logger() {
+        return new ConsoleMessageOutputImpl();
     }
 
     @Bean
-    public RaceVisualizationService visualizationService() {
-        return new ConsoleRaceVisualizationServiceImpl(logger());
+    public RaceVisualizationService visualizationService(MessageOutput messageOutput) {
+        return new ConsoleRaceVisualizationServiceImpl(messageOutput);
     }
 
     @Bean
-    public HippodromeService gameService() {
-        return new HippodromeServiceImpl(logger(), player(), inputService(), horseService(), betExecuterService(), raceService());
+    public HippodromeService hippodromeService(MessageOutput messageOutput, Player player, RoundService roundService) {
+        return new HippodromeServiceImpl(messageOutput, player, roundService);
     }
 
     @Bean
-    public HorseService horseService() {
-        return new HorseServiceImpl(logger());
+    public RoundService roundService(MessageOutput messageOutput, Player player, HorseService horseService, UserInput userInput, BetExecuterService betExecuterService, RaceService raceService) {
+        return new RoundServiceImpl(messageOutput, player, horseService, userInput, betExecuterService, raceService);
     }
 
     @Bean
-    public RaceService raceService() {
-        return new RaceServiceImpl(logger(), visualizationService());
+    public HorseService horseService(MessageOutput messageOutput) {
+        return new HorseServiceImpl(messageOutput);
     }
 
+    @Bean
+    public RaceService raceService(MessageOutput messageOutput, RaceVisualizationService visualizationService) {
+        return new RaceServiceImpl(messageOutput, visualizationService);
+    }
 
 }

@@ -1,5 +1,6 @@
 package org.example.service;
 
 public interface RaceService {
-    int startRace(int horseCount);
+    
+    int getWinner(int horseCount);
 }

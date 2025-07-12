@@ -1,7 +1,8 @@
 package org.example.service;
 
 public interface BetExecuterService {
-    void executeBet(int money);
+    
+    void payoutWin(int money);
 
-    void getMoneyForBet(int money);
+    void placeBet(int money);
 }
