@@ -10,7 +10,7 @@
     <form action="register" method="post">
 
         <div>
-            Name: <input type="text" name="name">${loginError}
+            Name: <input type="text" name="name">${nameError}
         </div>
 
         <div>
