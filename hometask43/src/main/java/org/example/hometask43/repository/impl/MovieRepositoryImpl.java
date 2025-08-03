@@ -4,15 +4,12 @@ import org.example.hometask43.entity.Movie;
 import org.example.hometask43.repository.MovieRepository;
 import org.example.hometask43.service.FileStorageService;
 import org.example.hometask43.service.SerializationService;
-import org.example.hometask43.service.impl.FileStorageServiceImpl;
-import org.example.hometask43.service.impl.GsonSerializationService;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
 public class MovieRepositoryImpl implements MovieRepository {

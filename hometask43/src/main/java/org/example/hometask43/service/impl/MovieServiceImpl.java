@@ -4,7 +4,6 @@ import org.example.hometask43.dto.MovieDto;
 import org.example.hometask43.entity.Movie;
 import org.example.hometask43.mapper.MovieMapper;
 import org.example.hometask43.repository.MovieRepository;
-import org.example.hometask43.repository.impl.MovieRepositoryImpl;
 import org.example.hometask43.service.MovieService;
 import org.springframework.stereotype.Service;
 
