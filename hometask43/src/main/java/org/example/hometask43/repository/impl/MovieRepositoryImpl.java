@@ -2,6 +2,10 @@ package org.example.hometask43.repository.impl;
 
 import org.example.hometask43.entity.Movie;
 import org.example.hometask43.repository.MovieRepository;
+import org.example.hometask43.service.FileStorageService;
+import org.example.hometask43.service.SerializationService;
+import org.example.hometask43.service.impl.FileStorageServiceImpl;
+import org.example.hometask43.service.impl.GsonSerializationService;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,15 +18,36 @@ import java.util.stream.Collectors;
 public class MovieRepositoryImpl implements MovieRepository {
 
     private final List<Movie> movies;
+    private final FileStorageService fileStorageService;
+    private final SerializationService<Movie> serializationService;
+    private static final String STORAGE_FILE = "movies.json";
 
-    public MovieRepositoryImpl() {
-        this.movies = new ArrayList<>();
+    public MovieRepositoryImpl(
+            FileStorageService fileStorageService,
+            SerializationService<Movie> serializationService) {
+        this.fileStorageService = fileStorageService;
+        this.serializationService = serializationService;
+        this.movies = loadMovies();
+    }
 
+    private List<Movie> loadMovies() {
+        Optional<String> optionalString = fileStorageService.readFromFile(STORAGE_FILE);
+        if (optionalString.isPresent()) {
+            String data = optionalString.get();
+            return serializationService.deserialize(data, Movie.class);
+        }
+        return new ArrayList<>();
+    }
+
+    private void saveMovies() {
+        String data = serializationService.serialize(movies);
+        fileStorageService.saveToFile(STORAGE_FILE, data);
     }
 
     @Override
     public Movie save(Movie movie) {
         movies.add(movie);
+        saveMovies();
         return movie;
     }
 
@@ -43,7 +68,11 @@ public class MovieRepositoryImpl implements MovieRepository {
     public Movie update(Movie movie) {
         for (int i = 0; i < movies.size(); i++) {
             if (movies.get(i).getId().equals(movie.getId())) {
-                return movies.set(i, movie);
+                var result = movies.set(i, movie);
+                if (result != null) {
+                    saveMovies();
+                }
+                return movie;
             }
         }
         return null;
@@ -51,7 +80,11 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public boolean deleteById(UUID uuid) {
-        return movies.removeIf(movie -> movie.getId().equals(uuid));
+        var result = movies.removeIf(movie -> movie.getId().equals(uuid));
+        if (result) {
+            saveMovies();
+        }
+        return result;
     }
 
     @Override
