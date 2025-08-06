@@ -1,0 +1,9 @@
+dev:
+  property:
+    test: "Test property"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
