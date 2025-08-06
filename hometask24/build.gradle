@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+    implementation 'org.postgresql:postgresql:42.7.5'
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.1.0'
+    implementation "org.mindrot:jbcrypt:0.4"
+}
+
+test {
+    useJUnitPlatform()
+}
