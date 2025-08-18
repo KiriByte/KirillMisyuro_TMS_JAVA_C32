@@ -25,9 +25,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void saveMovie(MovieDto movieDto) {
-        if (movieDto.getId() == null) {
-            movieDto.setId(UUID.randomUUID());
-        }
+//        if (movieDto.getId() == null) {
+//            movieDto.setId(UUID.randomUUID());
+//        }
         Movie movie = movieMapper.movieDtoToMovie(movieDto);
         movieRepository.save(movie);
     }
@@ -63,7 +63,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean deleteMovieById(UUID id) {
-        return movieRepository.deleteById(id);
+    public void deleteMovieById(UUID id) {
+        movieRepository.deleteById(id);
     }
 }

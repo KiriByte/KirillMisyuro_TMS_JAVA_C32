@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title th:text="#{movie.title}">Movie Library</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -17,36 +17,48 @@
     </div>
 
     <!-- Error Messages -->
-    <div th:if="${successMessage}" class="alert alert-success">
+    <div class="alert alert-success" th:if="${successMessage}">
         <span th:text="${successMessage}"></span>
     </div>
-    <div th:if="${errorMessage}" class="alert alert-danger">
+    <div class="alert alert-danger" th:if="${errorMessage}">
         <span th:text="${errorMessage}"></span>
     </div>
 
     <!-- Movie Form -->
-    <form th:action="@{/movies}" th:object="${movieDto}" method="post" class="mb-5">
-        <input type="hidden" th:field="*{id}">
+    <form class="mb-5" method="post" th:action="@{/movies}" th:object="${movieDto}">
+        <input th:field="*{id}" type="hidden">
 
         <div class="mb-3">
-            <label for="title" class="form-label" th:text="#{movie.form.title}">Title</label>
-            <input type="text" class="form-control" id="title" th:field="*{title}"
-                   th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}"
-                 th:errors="*{title}">Title error
+            <label class="form-label" for="title" th:text="#{movie.form.title}">Title</label>
+            <input class="form-control" id="title" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"
+                   th:field="*{title}"
+                   type="text">
+            <div class="invalid-feedback" th:errors="*{title}"
+                 th:if="${#fields.hasErrors('title')}">Title error
             </div>
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label" th:text="#{movie.form.description}">Description</label>
-            <textarea class="form-control" id="description" th:field="*{description}" rows="3"
-                      th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'"></textarea>
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
-                 th:errors="*{description}">Description error
+            <label class="form-label" for="description" th:text="#{movie.form.description}">Description</label>
+            <textarea class="form-control" id="description" rows="3"
+                      th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'"
+                      th:field="*{description}"></textarea>
+            <div class="invalid-feedback" th:errors="*{description}"
+                 th:if="${#fields.hasErrors('description')}">Description error
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" th:text="#{movie.form.submit}">Save Movie</button>
+        <button class="btn btn-primary" th:text="#{movie.form.submit}" type="submit">Save Movie</button>
+    </form>
+
+    <form class="mb-4" method="get" th:action="@{/movies/search}">
+        <div class="input-group">
+            <input class="form-control" name="title" placeholder="Search by title..."
+                   th:placeholder="#{movie.search.placeholder}"
+                   type="text">
+            <button class="btn btn-primary" th:text="#{movie.search.button}" type="submit">Search</button>
+            <a class="btn btn-secondary" th:href="@{/movies}" th:text="#{movie.search.reset}">Reset</a>
+        </div>
     </form>
 
     <!-- Movie List -->
@@ -65,10 +77,10 @@
             <td th:text="${movie.title}"></td>
             <td th:text="${movie.description}"></td>
             <td>
-                <form th:action="@{/movies/delete}" method="post">
-                    <input type="hidden" name="id" th:value="${movie.id}">
-                    <button type="submit" class="btn btn-sm btn-danger"
-                            th:text="#{movie.list.action.delete}">Delete
+                <form method="post" th:action="@{/movies/delete}">
+                    <input name="id" th:value="${movie.id}" type="hidden">
+                    <button class="btn btn-sm btn-danger" th:text="#{movie.list.action.delete}"
+                            type="submit">Delete
                     </button>
                 </form>
             </td>

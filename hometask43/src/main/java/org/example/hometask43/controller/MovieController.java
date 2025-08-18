@@ -32,6 +32,13 @@ public class MovieController {
         return "movies";
     }
 
+    @GetMapping("/search")
+    public String searchMovies(@RequestParam String title, Model model) {
+        model.addAttribute("movieDto", new MovieDto());
+        model.addAttribute("movies", movieService.findMovieByTitle(title));
+        return "movies";
+    }
+
     @PostMapping
     public String saveMovie(@Valid @ModelAttribute("movieDto") MovieDto movieDto,
                             BindingResult bindingResult,
@@ -51,16 +58,8 @@ public class MovieController {
     }
 
     @PostMapping("/delete")
-    public String deleteMovie(@RequestParam UUID id,
-                              RedirectAttributes redirectAttributes,
-                              Locale locale) {
-        if (movieService.deleteMovieById(id)) {
-            redirectAttributes.addFlashAttribute("successMessage",
-                    messageSource.getMessage("movie.delete.success", null, locale));
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage",
-                    messageSource.getMessage("movie.delete.error", null, locale));
-        }
+    public String deleteMovie(@RequestParam UUID id) {
+        movieService.deleteMovieById(id);
         return "redirect:/movies";
     }
 }

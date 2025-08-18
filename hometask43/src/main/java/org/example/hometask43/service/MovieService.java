@@ -16,6 +16,6 @@ public interface MovieService {
 
     Optional<MovieDto> findMovieById(UUID id);
 
-    boolean deleteMovieById(UUID id);
+    void deleteMovieById(UUID id);
 
 }
