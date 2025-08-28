@@ -1,10 +1,17 @@
 package org.example.hometask43.service.impl;
 
+import io.micrometer.common.util.StringUtils;
+import jakarta.persistence.criteria.Predicate;
 import org.example.hometask43.dto.MovieDto;
+import org.example.hometask43.dto.PageDto;
+import org.example.hometask43.dto.SearchDto;
 import org.example.hometask43.entity.Movie;
 import org.example.hometask43.mapper.MovieMapper;
 import org.example.hometask43.repository.MovieRepository;
 import org.example.hometask43.service.MovieService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,5 +72,40 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void deleteMovieById(UUID id) {
         movieRepository.deleteById(id);
+    }
+
+    @Override
+    public List<MovieDto> findPageable(PageDto pageDto) {
+
+        PageRequest pageRequest = PageRequest.of(pageDto.getPage(), pageDto.getSize());
+        Page<Movie> result = movieRepository.findAll(pageRequest);
+        return result.getContent().stream()
+                .map(movieMapper::movieToMovieDto)
+                .toList();
+    }
+
+    @Override
+    public List<MovieDto> findByFilter(SearchDto searchDto) {
+        var specs = createSpecification(searchDto);
+        var allMovies = movieRepository.findAll(specs);
+        return allMovies.stream()
+                .map(movieMapper::movieToMovieDto)
+                .toList();
+    }
+
+    private Specification<Movie> createSpecification(SearchDto searchDto) {
+        return ((root, query, criteriaBuilder) -> {
+
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (StringUtils.isNotBlank(searchDto.getTitle())) {
+                predicates.add(criteriaBuilder.equal(root.get("title"), searchDto.getTitle()));
+            }
+            if (StringUtils.isNotBlank(searchDto.getDescription())) {
+                String searchPattern = "%" + searchDto.getDescription() + "%";
+                predicates.add(criteriaBuilder.like(root.get("description"), searchPattern));
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        });
     }
 }

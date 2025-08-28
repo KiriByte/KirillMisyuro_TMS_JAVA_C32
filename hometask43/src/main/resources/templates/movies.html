@@ -61,6 +61,23 @@
         </div>
     </form>
 
+    <form method="get" th:action="@{/movies/page}">
+        Page: <input name="page" type="number"><br>
+        Size: <input name="size" type="number"><br>
+        <input type="submit" value="Find">
+    </form>
+
+
+    <hr>
+    <hr>
+
+    <form method="get" th:action="@{/movies/specs}">
+        Search by title: <input name="title" type="text"><br>
+        Search by description: <input name="description" type="text"><br>
+        <input type="submit" value="Find by Specs">
+
+    </form>
+
     <!-- Movie List -->
     <h2 th:text="#{movie.list.title}">Movie List</h2>
 
@@ -87,6 +104,8 @@
         </tr>
         </tbody>
     </table>
+
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

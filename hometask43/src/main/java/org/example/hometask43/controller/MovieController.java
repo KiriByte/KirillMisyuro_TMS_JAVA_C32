@@ -2,6 +2,8 @@ package org.example.hometask43.controller;
 
 import jakarta.validation.Valid;
 import org.example.hometask43.dto.MovieDto;
+import org.example.hometask43.dto.PageDto;
+import org.example.hometask43.dto.SearchDto;
 import org.example.hometask43.service.MovieService;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -62,4 +65,22 @@ public class MovieController {
         movieService.deleteMovieById(id);
         return "redirect:/movies";
     }
+
+    @GetMapping("/page")
+    public String page(@ModelAttribute PageDto pageDto, Model model) {
+        List<MovieDto> result = movieService.findPageable(pageDto);
+        model.addAttribute("movieDto", new MovieDto());
+        model.addAttribute("pageDto", pageDto);
+        model.addAttribute("movies", result);
+        return "movies";
+    }
+
+    @GetMapping("/specs")
+    public String specs(@ModelAttribute SearchDto searchDto, Model model) {
+        List<MovieDto> result = movieService.findByFilter(searchDto);
+        model.addAttribute("movieDto", new MovieDto());
+        model.addAttribute("movies", result);
+        return "movies";
+    }
+
 }

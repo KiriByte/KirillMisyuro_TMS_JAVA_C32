@@ -1,6 +1,8 @@
 package org.example.hometask43.service;
 
 import org.example.hometask43.dto.MovieDto;
+import org.example.hometask43.dto.PageDto;
+import org.example.hometask43.dto.SearchDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +20,7 @@ public interface MovieService {
 
     void deleteMovieById(UUID id);
 
+    List<MovieDto> findPageable(PageDto pageDto);
+
+    List<MovieDto> findByFilter(SearchDto searchDto);
 }
