@@ -17,4 +17,8 @@ public interface HotelService {
 
     List<HotelDto> findAllAvailable();
 
+    HotelDto setRented(UUID id);
+
+    HotelDto setUnRented(UUID id);
+
 }

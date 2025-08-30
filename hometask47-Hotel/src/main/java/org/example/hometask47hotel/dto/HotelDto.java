@@ -14,5 +14,6 @@ import java.util.UUID;
 public class HotelDto {
     private UUID id;
     private String name;
-    private boolean isAvailable;
+    private Boolean available;
+
 }

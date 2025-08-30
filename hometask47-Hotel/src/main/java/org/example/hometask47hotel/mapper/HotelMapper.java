@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface HotelMapper {
 
-    public HotelEntity toEntity(HotelDto hotelDto);
+    HotelEntity toEntity(HotelDto hotelDto);
 
-    public HotelDto toDto(HotelEntity hotelEntity);
+    HotelDto toDto(HotelEntity hotelEntity);
 }

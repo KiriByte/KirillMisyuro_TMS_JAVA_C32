@@ -1,6 +1,5 @@
-package org.example.hometask47hotel.entity;
+package org.example.hometask47client.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,16 +7,12 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "hotels")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HotelEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class HotelDto {
+
     private UUID id;
     private String name;
-    private boolean available;
 }

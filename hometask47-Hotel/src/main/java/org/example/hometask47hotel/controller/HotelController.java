@@ -42,5 +42,15 @@ public class HotelController {
         return hotelService.update(hotelDto);
     }
 
+    @PutMapping("/rent")
+    public HotelDto rentHotel(@RequestBody UUID id) {
+        return hotelService.setRented(id);
+    }
+
+    @PutMapping("/unrent")
+    public HotelDto unRentHotel(@RequestBody UUID id) {
+        return hotelService.setUnRented(id);
+    }
+
 
 }

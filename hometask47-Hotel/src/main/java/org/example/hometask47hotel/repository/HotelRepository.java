@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface HotelRepository extends JpaRepository<HotelEntity, UUID> {
 
-    public List<HotelEntity> findByIsAvailableTrue();
+    public List<HotelEntity> findByAvailableTrue();
 }

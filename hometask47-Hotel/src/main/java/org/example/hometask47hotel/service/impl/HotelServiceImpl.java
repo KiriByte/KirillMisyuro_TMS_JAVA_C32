@@ -51,9 +51,23 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelDto> findAllAvailable() {
-        var list = hotelRepository.findByIsAvailableTrue();
+        var list = hotelRepository.findByAvailableTrue();
         return list.stream()
                 .map(hotelEntity -> mapper.toDto(hotelEntity))
                 .toList();
+    }
+
+    @Override
+    public HotelDto setRented(UUID id) {
+        HotelDto byId = findById(id);
+        byId.setAvailable(false);
+        return update(byId);
+    }
+
+    @Override
+    public HotelDto setUnRented(UUID id) {
+        HotelDto byId = findById(id);
+        byId.setAvailable(true);
+        return update(byId);
     }
 }
