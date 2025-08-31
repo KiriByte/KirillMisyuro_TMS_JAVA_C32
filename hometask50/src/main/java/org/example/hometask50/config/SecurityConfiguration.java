@@ -28,6 +28,14 @@ public class SecurityConfiguration {
                         .requestMatchers("/deny").denyAll()
                         .anyRequest().authenticated()
                 )
+                .formLogin(login -> login
+                        .loginPage("/login").permitAll()
+                        .defaultSuccessUrl("/auth")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
